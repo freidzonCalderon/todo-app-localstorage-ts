@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { useInputContext } from "../Context/InputTaskContext";
+import { useTaskContext } from "../Context/ListTaskContext";
 
 const InputForm = () => {
-	const [inputTask, setInputTask] = useState<string>("");
+	const { inputTask, setInputTask } = useInputContext();
+	const { tasks, addTask } = useTaskContext();
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
 		console.log(inputTask);
-		setInputTask("");
+		addTask(inputTask);
+		console.log(tasks);
+
+		const newInputTask = {
+			taskTitle: "",
+			isComplete: false,
+			id: Math.random() * 10,
+		};
+		setInputTask(newInputTask);
 	};
 
 	return (
@@ -20,9 +32,9 @@ const InputForm = () => {
 						placeholder="Type a task"
 						required
 						onChange={(e) => {
-							setInputTask(e.target.value);
+							setInputTask({ ...inputTask, taskTitle: e.target.value });
 						}}
-						value={inputTask}
+						value={inputTask.taskTitle}
 					/>
 					<button
 						className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
