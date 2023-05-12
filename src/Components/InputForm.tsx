@@ -5,14 +5,12 @@ import { useTaskContext } from "../Context/ListTaskContext";
 
 const InputForm = () => {
 	const { inputTask, setInputTask } = useInputContext();
-	const { tasks, addTask } = useTaskContext();
+	const { addTask } = useTaskContext();
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		// console.log(inputTask);
 		addTask(inputTask);
-		// console.log(tasks);
 
 		const newInputTask = {
 			taskTitle: "",

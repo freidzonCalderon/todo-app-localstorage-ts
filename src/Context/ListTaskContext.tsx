@@ -26,6 +26,13 @@ interface Props {
 export const TaskProvider = ({ children }: Props) => {
 	const [tasks, setTasks] = useState<InputTask[]>([]);
 
+	useEffect(() => {
+		const localStorageTasks = localStorage.getItem("tasks");
+		if (localStorageTasks !== null) {
+			setTasks(JSON.parse(localStorageTasks));
+		}
+	}, []);
+
 	const addTask = (task: InputTask) => {
 		const updatedTasks = [...tasks, task];
 		setTasks(updatedTasks);
