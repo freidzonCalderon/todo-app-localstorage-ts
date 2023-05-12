@@ -60,7 +60,7 @@ const TodoItem = ({ task }: TodoItemProps) => {
 					</button>
 				</div>
 			</div>
-			<EditForm show={showEditForm} handleClose={handleCloseEditForm} />
+			<EditForm show={showEditForm} handleClose={handleCloseEditForm} TaskID={task.id}/>
 		</div>
 	);
 };
