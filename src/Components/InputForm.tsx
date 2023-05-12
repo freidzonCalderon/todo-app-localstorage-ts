@@ -10,9 +10,9 @@ const InputForm = () => {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		console.log(inputTask);
+		// console.log(inputTask);
 		addTask(inputTask);
-		console.log(tasks);
+		// console.log(tasks);
 
 		const newInputTask = {
 			taskTitle: "",

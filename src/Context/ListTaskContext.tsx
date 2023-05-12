@@ -26,31 +26,24 @@ interface Props {
 export const TaskProvider = ({ children }: Props) => {
 	const [tasks, setTasks] = useState<InputTask[]>([]);
 
-	useEffect(() => {
-		const savedTasks = localStorage.getItem("tasks");
-		if (savedTasks) {
-			setTasks(JSON.parse(savedTasks));
-		}
-	}, []);
-
-	useEffect(() => {
-		localStorage.setItem("tasks", JSON.stringify(tasks));
-	}, [tasks]);
-
 	const addTask = (task: InputTask) => {
-		setTasks([...tasks, task]);
+		const updatedTasks = [...tasks, task];
+		setTasks(updatedTasks);
+		localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 	};
 
 	const removeTask = (taskId: number) => {
-		setTasks(tasks.filter((task) => task.id !== taskId));
+		const updatedTasks = tasks.filter((task) => task.id !== taskId);
+		setTasks(updatedTasks);
+		localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 	};
 
 	const toggleTask = (id: number) => {
-		setTasks((prevTasks) =>
-			prevTasks.map((task) =>
-				task.id === id ? { ...task, isComplete: !task.isComplete } : task
-			)
+		const updatedTasks = tasks.map((task) =>
+			task.id === id ? { ...task, isComplete: !task.isComplete } : task
 		);
+		setTasks(updatedTasks);
+		localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 	};
 
 	return (
