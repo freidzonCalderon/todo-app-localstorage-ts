@@ -6,6 +6,7 @@ export interface TaskContextType {
 	addTask: (task: InputTask) => void;
 	removeTask: (taskId: number) => void;
 	toggleTask: (id: number) => void;
+	updateTaskTitle: (id: number, taskTitle: string) => void;
 }
 
 const TaskContext = createContext<TaskContextType>({
@@ -13,6 +14,7 @@ const TaskContext = createContext<TaskContextType>({
 	addTask: () => {},
 	removeTask: () => {},
 	toggleTask: () => {},
+	updateTaskTitle: () => {},
 });
 
 export const useTaskContext = () => {
@@ -39,6 +41,20 @@ export const TaskProvider = ({ children }: Props) => {
 		localStorage.setItem("tasks", JSON.stringify(updatedTasks));
 	};
 
+	const updateTaskTitle = (taskId: number, updatedTaskTitle: string) => {
+		const updatedTasks = tasks.map((task) => {
+			if (task.id === taskId) {
+				return {
+					...task,
+					taskTitle: updatedTaskTitle,
+				};
+			}
+			return task;
+		});
+		setTasks(updatedTasks);
+		localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+	};
+
 	const removeTask = (taskId: number) => {
 		const updatedTasks = tasks.filter((task) => task.id !== taskId);
 		setTasks(updatedTasks);
@@ -54,7 +70,9 @@ export const TaskProvider = ({ children }: Props) => {
 	};
 
 	return (
-		<TaskContext.Provider value={{ tasks, addTask, removeTask, toggleTask }}>
+		<TaskContext.Provider
+			value={{ tasks, addTask, removeTask, toggleTask, updateTaskTitle }}
+		>
 			{children}
 		</TaskContext.Provider>
 	);
