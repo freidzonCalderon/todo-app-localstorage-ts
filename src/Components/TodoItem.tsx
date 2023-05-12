@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import EditForm from "./EditForm";
+import { InputTask } from "../Context/InputTaskContext";
+import { useTaskContext } from "../Context/ListTaskContext";
 
-function TodoItem() {
+interface TodoItemProps {
+	task: InputTask;
+}
+
+const TodoItem = ({ task }: TodoItemProps) => {
 	const [showEditForm, setShowEditForm] = useState(false);
+	const { removeTask, toggleTask } = useTaskContext();
 
 	const handleShowEditForm = () => {
 		setShowEditForm(true);
@@ -21,10 +28,19 @@ function TodoItem() {
 						className="mr-3"
 						type="checkbox"
 						title="todoCheck"
-						id="todoItem"
+						id={`${task.id}`}
+						checked={task.isComplete}
+						onChange={() => toggleTask(task.id)}
 					/>
-					<label className="mr-3 text-gray-100 text-3xl" htmlFor="todoItem">
-						Clean car
+					<label
+						className={
+							task.isComplete
+								? "line-through mr-3 text-gray-500 text-3xl"
+								: "mr-3 text-gray-100 text-3xl"
+						}
+						htmlFor={`${task.id}`}
+					>
+						{task.taskTitle}
 					</label>
 				</div>
 				<div className="buttons">
@@ -38,6 +54,7 @@ function TodoItem() {
 					<button
 						className="bg-red-500 hover:bg-red-700 text-white font-bold p-2 rounded"
 						title="Remove"
+						onClick={() => removeTask(task.id)}
 					>
 						<FaTrashAlt />
 					</button>
@@ -46,6 +63,6 @@ function TodoItem() {
 			<EditForm show={showEditForm} handleClose={handleCloseEditForm} />
 		</div>
 	);
-}
+};
 
 export default TodoItem;
