@@ -6,7 +6,7 @@ This is a simple To-Do app where you can manage daily tasks. You can create, rea
 
 The app was built using LocalStorage, which means that if you refresh the page or close the browser, your To-Do list will still be available. This feature allows you to keep track of your tasks without losing them.
 
-### Technologies used: React JS, Bootstrap, Tailwind CSS, LocalStorage
+### Technologies used: React JS, Typescript, Bootstrap, Tailwind CSS, LocalStorage
 
 To create a new task, click the (+) button and add a 'To-Do' item to your list. If you want to correct or modify a task, use the button with the pencil icon. To delete a task, click the trash button next to it. To mark a task as complete, just check the box next to it.
 
